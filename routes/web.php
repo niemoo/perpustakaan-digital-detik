@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'actionLogin'])->name('signin');
+
+Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('/signup', [AuthController::class, 'store'])->name('signup');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/beranda', [BookController::class, 'index'])->name('dashboard.beranda');
 });
+
+
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::prefix('dashboard')->group(function () {
+//         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
+//         Route::resource('book', BookController::class);
+//         Route::get('export', [BookController::class, 'export'])->name('book.export');
+//         Route::resource('category', CategoryController::class);
+//     });
+// });

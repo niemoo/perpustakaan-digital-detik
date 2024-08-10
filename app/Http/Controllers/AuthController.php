@@ -9,27 +9,39 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
-use Throwable;
 
 class AuthController extends Controller
 {
-    public function register(RegisterUserRequest $request) {
-        try {
-            User::create([
-                'name' => $request->validated('name'),
-                'username' => $request->validated('username'),
-                'email' => $request->validated('email'),
-                'password' => Hash::make($request->validated('password')),
-            ]);
+    public function login() {
+        if (Auth::check()) {
+            return redirect('beranda');
+        }else{
+            return view('auth.login');
+        }
+    }
 
+    public function register() {
+        return view('auth.register');
+    }
+
+    public function store(RegisterUserRequest $request) {
+        $user = User::create([
+            'name' => $request->validated('name'),
+            'username' => $request->validated('username'),
+            'email' => $request->validated('email'),
+            'password' => Hash::make($request->validated('password')),
+        ]);
+    
+        if ($user) {
             Alert::success('Success', 'Berhasil melakukan registrasi');
-        } catch (Throwable $err) {
-            Alert::error('Error', 'Gagal melakukan registrasi');
+            return redirect()->route('auth.login');
+        } else {
+            Alert::error('Error', 'Gagal melakukan registrasi. Silakan coba lagi.');
             return redirect()->back();
         }
     }
 
-    public function login(Request $request) {
+    public function actionLogin(Request $request) {
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required',
@@ -37,7 +49,7 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             Alert::toast('Username atau password salah', 'error');
-            return redirect()->route('login');
+            return redirect()->route('auth.login');
         }
 
         $credentials = $request->only('username', 'password');
@@ -46,11 +58,17 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             // Autentikasi berhasil
             Alert::success('Success', 'Berhasil login');
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard.beranda');
         } else {
             // Autentikasi gagal
             Alert::toast('Username atau password salah', 'error');
-            return redirect()->route('login');
+            return redirect()->route('auth.login');
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('auth.login');
     }
 }
