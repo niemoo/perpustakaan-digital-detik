@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [BookController::class, 'dashboard'])->name('dashboard.dashboard');
         Route::resource('book', BookController::class);
+        Route::resource('category', CategoryController::class);
     });
 });
 

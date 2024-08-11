@@ -48,19 +48,19 @@
                                     <div class="flex flex-wrap mt-4 -mx-3">
                                         <div class="w-full max-w-full px-3 flex-0 sm:w-6/12">
                                             <label class="mb-2 ml-1 text-xs font-bold text-slate-700 dark:text-white/80"
-                                                for="image">Image</label>
+                                                for="cover">Image</label>
                                             <input type="hidden" name="oldImage" value="{{ $book->image }}">
-                                            <input name="image"
+                                            <input name="cover"
                                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                id="image" type="file">
+                                                id="cover" type="file">
                                         </div>
                                         <div class="w-full max-w-full px-3 mt-4 flex-0 sm:mt-0 sm:w-6/12">
                                             <label class="mb-2 ml-1 text-xs font-bold text-slate-700 dark:text-white/80"
-                                                for="file">PDF</label>
+                                                for="file_pdf">PDF</label>
                                             <input type="hidden" name="oldFile" value="{{ $book->pdf }}">
-                                            <input name="file"
+                                            <input name="file_pdf"
                                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                id="file" type="file">
+                                                id="file_pdf" type="file">
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap mt-4 -mx-3">

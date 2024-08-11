@@ -3,9 +3,6 @@
 @section('content')
 <div class="p-4 sm:ml-64">
     <div class="p-4 rounded-lg mt-14">
-        <p>halaman buku</p>
-    </div>
-
     <div class="flex flex-wrap -mx-3 overflow-hidden">
         <div class="flex-none w-full max-w-full px-3">
             <div
@@ -15,16 +12,15 @@
                     <form action="{{ route('book.index') }}" method="get" class="flex items-center space-x-4">
                         <div class="w-8/12">
                             <label for="category_id" class="block text-gray-700">Category</label>
-                            {{-- <select name="category_id" id="category_id"
+                            <select name="category_id" id="category_id"
                                 class="block w-full mt-1 border-gray-300 rounded-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <option value="" disabled {{ $request->category_id ? '' : 'selected' }}>-- Select
-                                    Category --</option>
+                                <option value="" disabled {{ request('category_id') ? '' : 'selected' }}>-- Select Category --</option>
                                 @foreach (\App\Models\Category::all() as $item)
                                     <option value="{{ $item->id }}"
-                                        {{ $request->category_id == $item->id ? 'selected' : '' }}>
+                                        {{ request('category_id') == $item->id ? 'selected' : '' }}>
                                         {{ $item->name }}</option>
                                 @endforeach
-                            </select> --}}
+                            </select>
                         </div>
                         <div class="flex items-end w-2/12 space-x-2">
                             <button type="submit"
@@ -37,6 +33,7 @@
                             </a>
                         </div>
                     </form>
+                    
                     <div class="flex items-center space-x-4">
                         <!-- Button export book -->
                         {{-- <a href="{{route('book.export')}}" type="button" data-tooltip-target="tooltip-exportbook"
@@ -96,8 +93,7 @@
                                     <tr>
                                         <td
                                             class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                            <span
-                                                class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $loop->iteration }}</span>
+                                            <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $loop->iteration }}</span>
                                         </td>
                                         <td
                                             class="p-2 text-sm text-left bg-transparent border-b align-center dark:border-white/40 whitespace-nowrap shadow-transparent">
@@ -185,29 +181,5 @@
             </div>
         </div>
     </div>
-    {{-- <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                 <tr>
-                    <th scope="col" class="px-6 py-3">Id Buku</th>
-                    <th scope="col" class="px-6 py-3">Judul Buku</th>
-                    <th scope="col" class="px-6 py-3">Kategori Buku</th>
-                    <th scope="col" class="px-6 py-3">Deskripsi</th>
-                    <th scope="col" class="px-6 py-3">Jumlah</th>
-                 </tr>
-           </thead>
-           <tbody>
-                 @foreach($books as $book)
-                    <tr>
-                       <td class="px-6 py-3">{{ $book->id }}</td>
-                       <td class="px-6 py-3">{{ $book->title }}</td>
-                       <td class="px-6 py-3">{{ $book->category->name }}</td> <!-- Assuming 'name' is a field in Category model -->
-                       <td class="px-6 py-3">{{ $book->description }}</td>
-                       <td class="px-6 py-3">{{ $book->amount }}</td>
-                    </tr>
-                 @endforeach
-           </tbody>
-        </table>
-    </div> --}}
 </div>
 @endsection

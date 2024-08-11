@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BookController extends Controller
@@ -43,10 +44,16 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {  
         $cover = $request->file('cover');
-        $cover->storeAs('public/images', $cover->hashName());
+        $filenameCover = date('Y-m-d').$cover->getClientOriginalName();
+        $pathCover = 'images/'.$filenameCover;
+        Storage::disk('public')->put($pathCover, file_get_contents($cover));
+        // $cover->storeAs('public/images', $cover->hashName());
         
-        $file = $request->file('file');
-        $file->storeAs('public/files', $file->hashName());
+        $file_pdf = $request->file('file');
+        $filenameFile_pdf = date('Y-m-d').$file_pdf->getClientOriginalName();
+        $pathFile = 'files/'.$filenameFile_pdf;
+        Storage::disk('public')->put($pathFile, file_get_contents($file_pdf));
+        // $file->storeAs('public/files', $file->hashName());
         
         Book::create([
             'user_id' => auth()->user()->id,
@@ -54,8 +61,8 @@ class BookController extends Controller
             'title' => $request->validated('title'),
             'description' => $request->validated('description'),
             'amount' => $request->validated('amount'),
-            'file' => $file->hashName(),
-            'cover' => $cover->hashName()
+            'file' => $filenameFile_pdf,
+            'cover' => $filenameCover
         ]);
     
         Alert::success('Success', 'Berhasil menambah data buku');
@@ -77,37 +84,48 @@ class BookController extends Controller
         ]);
     }
 
-    public function update(UpdateBookRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
             $book = Book::find($id);
 
-            if ($request->hasFile('cover')) {
-                // if ($request->oldImage) {
-                //     Storage::disk('public/images')->delete($request->oldImage);
-                // }
-
-                $cover = $request->file('cover');
-                $cover->storeAs('public/images', $cover->hashName());
-            }
-
-            if ($request->hasFile('file')) {
-                // if ($request->oldFile) {
-                //     Storage::disk('public/files')->delete($request->oldFile);
-                // }
-
-                $file = $request->file('file');
-                $file->storeAs('public/files', $file->hashName());
-            }
-
-            $book->update([
-                'title' => $request->input('title', $book->title),
-                'category_id' => $request->input('category_id', $book->category_id),
-                'cover' => $request->hasFile('cover') ? $cover : $book->cover,
-                'file' => $request->hasFile('file') ? $file : $book->file,
-                'amount' => $request->input('amount', $book->amount),
-                'description' => $request->input('description', $book->description),
+            $validator = Validator::make($request->all(), [
+                'category_id' => 'nullable|integer',
+                'title' => 'nullable|string',
+                'description' => 'nullable|string',
+                'amount' => 'nullable|numeric|min:0',
+                'file' => 'nullable|file|mimes:pdf',
+                'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             ]);
+
+            if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+
+            $data = [
+                'title' => $request->title,
+                'category_id' => $request->category_id,
+                'amount' => $request->amount,
+                'description' => $request->description
+            ];
+
+            $cover = $request->file('cover');
+            
+            if ($cover) {
+                $filenameCover = date('Y-m-d').$cover->getClientOriginalName();
+                $pathCover = 'images/'.$filenameCover;
+                Storage::disk('public')->put($pathCover, file_get_contents($cover));
+                $data['cover'] = $filenameCover;
+            }
+            
+            $file_pdf = $request->file('file_pdf');
+
+            if ($file_pdf) {
+                $filenameFile_pdf = date('Y-m-d').$file_pdf->getClientOriginalName();
+                $pathFile = 'files/'.$filenameFile_pdf;
+                Storage::disk('public')->put($pathFile, file_get_contents($file_pdf));
+                $data['file'] = $filenameFile_pdf;
+            }
+
+            $book->update($data);
 
             Alert::success('Success', 'Book updated successfully');
             return redirect()->route('book.index');
