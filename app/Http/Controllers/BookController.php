@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BookExport;
 use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BookController extends Controller
@@ -32,6 +33,11 @@ class BookController extends Controller
     {
         $books = Book::with('category')->get();
         return view('dashboard.dashboard', ['books' => $books]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new BookExport, 'book.xlsx');
     }
 
     public function create()

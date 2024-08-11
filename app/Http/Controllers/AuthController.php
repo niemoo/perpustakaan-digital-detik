@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            return redirect('/dashboard');
+            return redirect('/dashboard/book');
         }else{
             return view('auth.login');
         }
@@ -62,7 +62,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             // Autentikasi berhasil
             Alert::success('Success', 'Berhasil login');
-            return redirect()->route('dashboard.dashboard');
+            return redirect()->route('book.index');
         } else {
             // Autentikasi gagal
             Alert::toast('Username atau password salah', 'error');
