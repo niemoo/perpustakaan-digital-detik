@@ -1,16 +1,21 @@
 @extends('dashboard.layouts.dashboardmain')
 @section('title', 'book')
 @section('content')
+<div class="p-4 sm:ml-64">
+    <div class="p-4 rounded-lg mt-14">
+        <p>halaman buku</p>
+    </div>
+
     <div class="flex flex-wrap -mx-3 overflow-hidden">
         <div class="flex-none w-full max-w-full px-3">
             <div
-                class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+                class="relative flex flex-col min-w-0 mb-6 break-words bg-white border border-gray-300 border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                 <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 flex justify-between">
                     <h5 class="mb-0 dark:text-white">Table book</h5>
                     <form action="{{ route('book.index') }}" method="get" class="flex items-center space-x-4">
                         <div class="w-8/12">
                             <label for="category_id" class="block text-gray-700">Category</label>
-                            <select name="category_id" id="category_id"
+                            {{-- <select name="category_id" id="category_id"
                                 class="block w-full mt-1 border-gray-300 rounded-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="" disabled {{ $request->category_id ? '' : 'selected' }}>-- Select
                                     Category --</option>
@@ -19,7 +24,7 @@
                                         {{ $request->category_id == $item->id ? 'selected' : '' }}>
                                         {{ $item->name }}</option>
                                 @endforeach
-                            </select>
+                            </select> --}}
                         </div>
                         <div class="flex items-end w-2/12 space-x-2">
                             <button type="submit"
@@ -34,10 +39,10 @@
                     </form>
                     <div class="flex items-center space-x-4">
                         <!-- Button export book -->
-                        <a href="{{route('book.export')}}" type="button" data-tooltip-target="tooltip-exportbook"
+                        {{-- <a href="{{route('book.export')}}" type="button" data-tooltip-target="tooltip-exportbook"
                             class="px-4 py-2 m-2 mb-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Export book
-                        </a>
+                        </a> --}}
                         <!-- End Button export book -->
                         <div id="tooltip-exportbook" role="tooltip"
                             class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -47,14 +52,8 @@
                         <!-- Button Add book -->
                         <a href="{{ route('book.create') }}" type="button" data-tooltip-target="tooltip-addbook"
                             class="px-4 py-2 m-2 mb-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                            Add book
+                            Tambah buku
                         </a>
-                        <!-- End Button Add book -->
-                        <div id="tooltip-addbook" role="tooltip"
-                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                            Tambahkan Book
-                            <div class="tooltip-arrow" data-popper-arrow></div>
-                        </div>
                     </div>
                 </div>
                 <div class="flex-auto px-0 pt-0 pb-2">
@@ -110,8 +109,7 @@
                                         <td
                                             class="p-2 text-sm text-left bg-transparent border-b align-center dark:border-white/40 whitespace-nowrap shadow-transparent">
                                             <div class="flex items-center justify-center">
-                                                <img src="{{ asset('storage/' . $book->image) }}" alt=""
-                                                    class="w-20 h-20 rounded-lg">
+                                                <img src="{{ asset($book->cover) }}" class="w-44 rounded-lg">
                                             </div>
                                         </td>
                                         <td
@@ -167,15 +165,13 @@
                                                 <!-- End Button Edit book -->
 
                                                 <!-- Button Delete book -->
-                                                <a href="{{ route('book.destroy', $book->id) }}"
-                                                    data-tooltip-target="tooltip-delete{{ $book->id }}"
-                                                    class="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center m-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                                    data-confirm-delete="true">Delete</a>
-                                                <div id="tooltip-delete{{ $book->id }}" role="tooltip"
-                                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                                    Hapus Book
-                                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                                </div>
+                                                <form action="{{ route('book.destroy', $book->id) }}" method="POST" class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" data-tooltip-target="tooltip-delete{{ $book->id }}"
+                                                        class="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center m-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                                        data-confirm-delete="true">Delete</button>
+                                                </form>
                                                 <!-- End Button Delete book -->
                                             </div>
                                         </td>
@@ -187,12 +183,31 @@
                     {{ $books->links() }}
                 </div>
             </div>
-            @include('dashboard.partials.footer')
         </div>
     </div>
+    {{-- <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                 <tr>
+                    <th scope="col" class="px-6 py-3">Id Buku</th>
+                    <th scope="col" class="px-6 py-3">Judul Buku</th>
+                    <th scope="col" class="px-6 py-3">Kategori Buku</th>
+                    <th scope="col" class="px-6 py-3">Deskripsi</th>
+                    <th scope="col" class="px-6 py-3">Jumlah</th>
+                 </tr>
+           </thead>
+           <tbody>
+                 @foreach($books as $book)
+                    <tr>
+                       <td class="px-6 py-3">{{ $book->id }}</td>
+                       <td class="px-6 py-3">{{ $book->title }}</td>
+                       <td class="px-6 py-3">{{ $book->category->name }}</td> <!-- Assuming 'name' is a field in Category model -->
+                       <td class="px-6 py-3">{{ $book->description }}</td>
+                       <td class="px-6 py-3">{{ $book->amount }}</td>
+                    </tr>
+                 @endforeach
+           </tbody>
+        </table>
+    </div> --}}
+</div>
 @endsection
-@push('customJS')
-    <!-- Argon -->
-    <script src="{{ asset('assets/js/sidenav-burger.js') }}"></script>
-    <script src="{{ asset('assets/js/fixed-plugin.js') }}"></script>
-@endpush

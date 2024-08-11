@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,10 +26,11 @@ Route::post('/signup', [AuthController::class, 'store'])->name('signup');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/beranda', [BookController::class, 'index'])->name('dashboard.beranda');
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [BookController::class, 'dashboard'])->name('dashboard.dashboard');
+        Route::resource('book', BookController::class);
+    });
 });
-
-
 
 // Route::middleware(['auth'])->group(function () {
 //     Route::prefix('dashboard')->group(function () {

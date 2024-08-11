@@ -11,13 +11,13 @@
                                 Back    
                             </a>
                         </div>
-                        <form class="relative mb-32" style="height: 402px;" action="{{ route('book.update',$book->id) }}"
+                        <form class="relative mb-32" style="height: 402px;" action="{{ route('book.update', $book->id) }}"
                             enctype="multipart/form-data" method="POST">
                             @method('PUT')
                             @csrf
                             <div
                                 class="absolute top-0 left-0 flex flex-col visible w-full h-auto min-w-0 p-4 break-words bg-white border-0 shadow-xl opacity-100 dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-                                <h5 class="mb-0 font-bold dark:text-white">Edit Book</h5>
+                                <h5 class="mb-0 font-bold dark:text-white">Update Data Buku</h5>
                                 <div>
                                     <div class="flex flex-wrap mt-4 -mx-3">
                                         <div class="w-full max-w-full px-3 flex-0 sm:w-6/12">
@@ -56,11 +56,11 @@
                                         </div>
                                         <div class="w-full max-w-full px-3 mt-4 flex-0 sm:mt-0 sm:w-6/12">
                                             <label class="mb-2 ml-1 text-xs font-bold text-slate-700 dark:text-white/80"
-                                                for="pdf">PDF</label>
-                                            <input type="hidden" name="oldPdf" value="{{ $book->pdf }}">
-                                            <input name="pdf"
+                                                for="file">PDF</label>
+                                            <input type="hidden" name="oldFile" value="{{ $book->pdf }}">
+                                            <input name="file"
                                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                id="pdf" type="file">
+                                                id="file" type="file">
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap mt-4 -mx-3">
@@ -120,11 +120,5 @@
                 </div>
             </div>
         </div>
-        @include('dashboard.partials.footer')
     </div>
 @endsection
-@push('customJS')
-    <!-- Argon -->
-    <script src="{{ asset('assets/js/sidenav-burger.js') }}"></script>
-    <script src="{{ asset('assets/js/fixed-plugin.js') }}"></script>
-@endpush
