@@ -58,13 +58,10 @@ class AuthController extends Controller
 
         $credentials = $request->only('username', 'password');
 
-        // Cek kredensial
         if (Auth::attempt($credentials)) {
-            // Autentikasi berhasil
             Alert::success('Success', 'Berhasil login');
             return redirect()->route('book.index');
         } else {
-            // Autentikasi gagal
             Alert::toast('Username atau password salah', 'error');
             return redirect()->route('auth.login');
         }

@@ -27,7 +27,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
-        Route::get('/', [BookController::class, 'dashboard'])->name('dashboard.dashboard');
+        // Route::get('/', [BookController::class, 'dashboard'])->name('dashboard.dashboard');
         Route::get('export', [BookController::class, 'export'])->name('book.export');
         Route::resource('book', BookController::class);
         Route::resource('category', CategoryController::class);

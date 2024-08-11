@@ -7,10 +7,10 @@
         <div class="flex-none w-full max-w-full px-3">
             <div
                 class="relative flex flex-col min-w-0 mb-6 break-words bg-white border border-gray-300 border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-                <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 md:flex grid gap-5 justify-between">
+                <h5 class="font-semibold text-lg p-6">Tabel Buku</h5>
+                <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid md:px-6 md:flex grid gap-5 justify-between">
                     <form action="{{ route('book.index') }}" method="get" class="md:flex grid gap-5 items-center space-x-4">
-                        <div class="w-8/12">
-                            <label for="category_id" class="block text-gray-700">Category</label>
+                        <div class="md:w-8/12 w-full md:pl-0 pl-5">
                             <select name="category_id" id="category_id"
                                 class="block w-full mt-1 border-gray-300 rounded-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="" disabled {{ request('category_id') ? '' : 'selected' }}>-- Select Category --</option>
@@ -56,24 +56,24 @@
                                     </th>
                                     <th
                                         class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                        Title</th>
+                                        Judul</th>
                                     <th
                                         class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                        Image</th>
+                                        Cover</th>
                                     <th
                                         class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                        Category</th>
+                                        Kategori</th>
                                     <th
                                         class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                        Amount</th>
+                                        Jumlah Buku</th>
                                     <th
                                         class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                        Description</th>
+                                        Deskripsi</th>
                                     <th
                                         class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                        PDF</th>
+                                        File PDF</th>
                                     <th
-                                        class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                        class="px-6 py-3 font-semibold uppercase align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                         action
                                     </th>
                                 </tr>
@@ -142,7 +142,6 @@
                                                         class="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center m-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                                         data-confirm-delete="true">Hapus</button>
                                                 </form>
-                                                <!-- End Button Delete book -->
                                             </div>
                                         </td>
                                     </tr>

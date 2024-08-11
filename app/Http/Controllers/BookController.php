@@ -53,13 +53,11 @@ class BookController extends Controller
         $filenameCover = date('Y-m-d').$cover->getClientOriginalName();
         $pathCover = 'images/'.$filenameCover;
         Storage::disk('public')->put($pathCover, file_get_contents($cover));
-        // $cover->storeAs('public/images', $cover->hashName());
         
         $file_pdf = $request->file('file');
         $filenameFile_pdf = date('Y-m-d').$file_pdf->getClientOriginalName();
         $pathFile = 'files/'.$filenameFile_pdf;
         Storage::disk('public')->put($pathFile, file_get_contents($file_pdf));
-        // $file->storeAs('public/files', $file->hashName());
         
         Book::create([
             'user_id' => auth()->user()->id,
@@ -144,8 +142,6 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         try {
-            // Storage::disk('public')->delete($book->image);
-            // Storage::disk('public')->delete($book->pdf);
             $book->delete();
             Alert::success('Success', 'Book deleted successfully');
             return redirect()->route('book.index');

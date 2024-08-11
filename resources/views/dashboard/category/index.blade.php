@@ -15,17 +15,14 @@
                             class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center m-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Tambah kategori</button>
                     </div>
                 </div>
-                <!-- Modal Create -->
                 <div id="add-category-modal" tabindex="-1" aria-hidden="true"
                     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative w-full max-w-md max-h-full p-4">
-                        <!-- Modal content -->
                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            <!-- Modal header -->
                             <div
                                 class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                    Add category
+                                    Tambah Kategori
                                 </h3>
                                 <button type="button"
                                     class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
@@ -38,17 +35,15 @@
                                     <span class="sr-only">Close modal</span>
                                 </button>
                             </div>
-                            <!-- Modal body -->
                             <form action="{{ route('category.store') }}" class="p-4 md:p-5" method="POST">
                                 @csrf
                                 <div class="grid grid-cols-2 gap-4 mb-4">
                                     <div class="col-span-2">
                                         <label for="name"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category
-                                            Name</label>
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kategori</label>
                                         <input type="text" name="name" id="name" required
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('name') is-invalid @enderror"
-                                            placeholder="eg. Novel">
+                                            placeholder="Contoh: Action">
                                         @error('name')
                                             <div class="mt-2 text-sm text-red-500">
                                                 {{ $message }}
@@ -58,19 +53,12 @@
                                 </div>
                                 <button type="submit"
                                     class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
                                     Add category
                                 </button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <!-- End Modal Create -->
                 <div class="flex-auto px-0 pt-0 pb-2">
                     <div class="p-0 overflow-x-auto">
                         <table
@@ -83,7 +71,7 @@
                                     </th>
                                     <th
                                         class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                        Category Name</th>
+                                        Nama Kategori</th>
                                     <th
                                         class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                         action
@@ -109,15 +97,11 @@
                                         <td
                                             class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                             <div class="flex items-center justify-center">
-                                                <!-- Button Edit category -->
                                                 <button data-modal-target="edit-category-modal{{ $category->id }}"
                                                     data-modal-toggle="edit-category-modal{{ $category->id }}"
                                                     type="button"
                                                     data-tooltip-target="tooltip-editcategory{{ $category->id }}"
                                                     class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center m-2 mb-2 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-800">Edit</button>
-                                                <!-- End Button Edit category -->
-
-                                                <!-- Button Delete category -->
                                                 <form action="{{ route('category.destroy', $category->id) }}" method="POST" class="inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -125,15 +109,11 @@
                                                         class="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center m-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                                         data-confirm-delete="true">Delete</button>
                                                 </form>
-
-                                                <!-- Modal Edit category -->
                                                 <div id="edit-category-modal{{ $category->id }}" tabindex="-1"
                                                     aria-hidden="true"
                                                     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                                     <div class="relative w-full max-w-md max-h-full p-4">
-                                                        <!-- Modal content -->
                                                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                            <!-- Modal header -->
                                                             <div
                                                                 class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
                                                                 <h3
@@ -153,7 +133,6 @@
                                                                     <span class="sr-only">Close modal</span>
                                                                 </button>
                                                             </div>
-                                                            <!-- Modal body edit-->
                                                             <form action="{{ route('category.update', $category->id) }}"
                                                                 class="p-4 md:p-5" method="POST">
                                                                 @csrf
@@ -183,7 +162,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- End Modal Edit category -->
                                             </div>
                                         </td>
                                     </tr>

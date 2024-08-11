@@ -46,14 +46,14 @@
                                                 for="cover">Gambar</label>
                                             <input name="cover"
                                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                id="cover" type="file" required>
+                                                id="cover" type="file" accept=".jpg, .jpeg, .png" required>
                                         </div>
                                         <div class="w-full max-w-full px-3 mt-4 flex-0 sm:mt-0 sm:w-6/12">
                                             <label class="mb-2 ml-1 text-xs font-bold text-slate-700 dark:text-white/80"
                                                 for="file">File Buku</label>
                                             <input name="file"
                                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                id="file" type="file" required>
+                                                id="file" type="file" accept=".pdf" required>
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap mt-4 -mx-3">
@@ -88,7 +88,6 @@
                         </form>
                     </div>
                 </div>
-            
         </div>
     </div>
     <script>
@@ -97,28 +96,23 @@
             const incrementButton = document.getElementById('increment-button');
             const quantityInput = document.getElementById('quantity-input');
         
-            // Initialize quantity value
             let quantity = parseInt(quantityInput.value, 10) || 0;
         
-            // Update input value function
             function updateQuantity(newQuantity) {
                 quantity = newQuantity;
                 quantityInput.value = quantity;
             }
         
-            // Decrement button event listener
             decrementButton.addEventListener('click', () => {
                 if (quantity > 0) {
                     updateQuantity(quantity - 1);
                 }
             });
         
-            // Increment button event listener
             incrementButton.addEventListener('click', () => {
                 updateQuantity(quantity + 1);
             });
         
-            // Input field event listener to ensure value is non-negative
             quantityInput.addEventListener('input', (event) => {
                 let value = parseInt(event.target.value, 10);
                 if (isNaN(value) || value < 0) {

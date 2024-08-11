@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('description');
             $table->integer('amount');
-            $table->string('file');
-            $table->string('cover');
+            $table->string('file')->nullable();
+            $table->string('cover')->nullable();
             $table->timestamps();
         });
     }
